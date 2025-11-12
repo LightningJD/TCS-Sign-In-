@@ -14,13 +14,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #87CEEB 0%, #B19CD9 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 20px 20px 40px 20px;
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
             scroll-behavior: smooth;
         }
 
@@ -50,33 +48,12 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             width: 100%;
             max-width: 500px;
-            max-height: 90vh;
             padding: 40px;
             position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
             z-index: 1;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            margin: 0 auto;
         }
 
-        .container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-        }
-
-        .container::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
 
         .logo {
             text-align: center;
@@ -562,25 +539,17 @@
             document.getElementById(viewId).classList.add('active');
             currentView = viewId;
 
-            // Force scroll to top - multiple methods for reliability
-            setTimeout(() => {
-                // Scroll container to top
-                const container = document.querySelector('.container');
-                if (container) {
-                    container.scrollTop = 0;
-                }
+            // Immediately scroll to top using multiple methods
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
 
-                // Scroll window to top
-                window.scrollTo(0, 0);
+            // Force one more time after a tiny delay
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0;
-
-                // Force browser to recalculate layout
-                container.style.overflow = 'hidden';
-                setTimeout(() => {
-                    container.style.overflow = 'auto';
-                }, 10);
-            }, 50);
+            }, 10);
         }
 
         // Send data to Supabase
@@ -617,23 +586,10 @@
             document.getElementById('newStudentForm').reset();
             showInitialView();
 
-            // Aggressive scroll reset for mobile
-            setTimeout(() => {
-                const container = document.querySelector('.container');
-                if (container) {
-                    container.scrollTop = 0;
-                }
-
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-
-                // Force layout recalculation
-                container.style.overflow = 'hidden';
-                setTimeout(() => {
-                    container.style.overflow = 'auto';
-                }, 10);
-            }, 50);
+            // Scroll to top immediately
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
         }
 
     </script>

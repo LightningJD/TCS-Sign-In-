@@ -14,11 +14,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #87CEEB 0%, #B19CD9 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 20px 20px 40px 20px;
+            position: relative;
+            overflow-y: auto;
             scroll-behavior: smooth;
         }
 
@@ -31,12 +31,9 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             width: 100%;
             max-width: 500px;
-            max-height: 90vh;
             padding: 40px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+            position: relative;
+            margin: 0 auto;
         }
 
         h1 {
@@ -331,25 +328,17 @@
             });
             document.getElementById(viewId).classList.add('active');
 
-            // Force scroll to top - multiple methods for reliability
-            setTimeout(() => {
-                // Scroll container to top
-                const container = document.querySelector('.container');
-                if (container) {
-                    container.scrollTop = 0;
-                }
+            // Immediately scroll to top using multiple methods
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
 
-                // Scroll window to top
-                window.scrollTo(0, 0);
+            // Force one more time after a tiny delay
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0;
-
-                // Force browser to recalculate layout
-                container.style.overflow = 'hidden';
-                setTimeout(() => {
-                    container.style.overflow = 'auto';
-                }, 10);
-            }, 50);
+            }, 10);
         }
 
         function showError(message) {
