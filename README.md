@@ -13,7 +13,7 @@ TCS Sign-In Tool
   - Export Data - Download attendance as CSV for record-keeping
 
 
-  🚀 Live Demo
+  🚀 Links
 
   - Student Sign-In: https://lightningjd.github.io/TCS-Sign-In-/student-signin.html
   - Leader Registration: https://lightningjd.github.io/TCS-Sign-In-/leader-registration.html
