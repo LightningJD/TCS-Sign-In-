@@ -19,6 +19,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -30,7 +31,12 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             width: 100%;
             max-width: 500px;
+            max-height: 90vh;
             padding: 40px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         h1 {
@@ -324,6 +330,10 @@
                 view.classList.remove('active');
             });
             document.getElementById(viewId).classList.add('active');
+
+            // Scroll to top when switching views
+            document.querySelector('.container').scrollTop = 0;
+            window.scrollTo(0, 0);
         }
 
         function showError(message) {
