@@ -524,13 +524,13 @@
                 });
 
                 // Show success message
-                document.getElementById('successName').textContent = `Welcome, ${firstName} ${lastName}!`;
+                document.getElementById('successName').textContent = `✓ ${firstName} registered successfully!`;
                 switchView('successView');
 
-                // Auto-reset after 3 seconds
+                // Auto-reset after 1.5 seconds
                 setTimeout(() => {
                     resetToInitial();
-                }, 3000);
+                }, 1500);
             } catch (error) {
                 console.error('Error submitting form:', error);
                 alert('There was an error submitting your registration. Please try again.');
@@ -539,13 +539,13 @@
 
         // Show Success View
         function showSuccess(firstName, lastName) {
-            document.getElementById('successName').textContent = `Welcome back, ${firstName} ${lastName}!`;
+            document.getElementById('successName').textContent = `✓ ${firstName} signed in successfully!`;
             switchView('successView');
 
-            // Auto-reset after 3 seconds
+            // Auto-reset after 1.5 seconds
             setTimeout(() => {
                 resetToInitial();
-            }, 3000);
+            }, 1500);
         }
 
         // Switch between views
