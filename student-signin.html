@@ -408,6 +408,35 @@
         const SUPABASE_URL = 'https://rlmhgaiygrkzpidspkcg.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsbWhnYWl5Z3JrenBpZHNwa2NnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3OTMxNTcsImV4cCI6MjA3ODM2OTE1N30.7e0cNNC9Fd_aqXVpJJahnwe-17B0axyrVnZExlA1iE4';
 
+        // Get leader ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const leaderId = urlParams.get('leader');
+        let leaderInfo = null;
+
+        // Load leader info if leader ID is present
+        if (leaderId) {
+            loadLeaderInfo();
+        }
+
+        async function loadLeaderInfo() {
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/leaders?id=eq.${leaderId}&select=*`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                });
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    leaderInfo = data[0];
+                    // Update page title or show class name
+                    document.querySelector('.logo p').textContent = `${leaderInfo.class_name} - Making attendance easy`;
+                }
+            } catch (error) {
+                console.error('Error loading leader info:', error);
+            }
+        }
+
         // Track current view
         let currentView = 'initialView';
 
@@ -439,7 +468,9 @@
             const data = {
                 first_name: firstName,
                 last_name: lastName,
-                type: 'Returning'
+                type: 'Returning',
+                leader_id: leaderId || null,
+                class_name: leaderInfo ? leaderInfo.class_name : null
             };
 
             // Send to Supabase
@@ -474,7 +505,9 @@
                 phone: phone,
                 birth_date: birthDate,
                 grade: grade,
-                type: 'New Student'
+                type: 'New Student',
+                leader_id: leaderId || null,
+                class_name: leaderInfo ? leaderInfo.class_name : null
             };
 
             // Send to Supabase
