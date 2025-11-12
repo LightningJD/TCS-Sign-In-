@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Leader Registration - TCS</title>
     <style>
         * {
@@ -331,9 +331,25 @@
             });
             document.getElementById(viewId).classList.add('active');
 
-            // Scroll to top when switching views
-            document.querySelector('.container').scrollTop = 0;
-            window.scrollTo(0, 0);
+            // Force scroll to top - multiple methods for reliability
+            setTimeout(() => {
+                // Scroll container to top
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.scrollTop = 0;
+                }
+
+                // Scroll window to top
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+
+                // Force browser to recalculate layout
+                container.style.overflow = 'hidden';
+                setTimeout(() => {
+                    container.style.overflow = 'auto';
+                }, 10);
+            }, 50);
         }
 
         function showError(message) {
