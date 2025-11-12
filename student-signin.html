@@ -387,9 +387,8 @@
         <div id="successView" class="form-view">
             <div class="success-message">
                 <div class="success-icon">✓</div>
-                <h2>Thank You!</h2>
-                <p id="successName"></p>
-                <p class="subtitle">You've been signed in successfully.</p>
+                <h2 id="successName">Thank you!</h2>
+                <p class="subtitle" style="font-size: 16px; margin-top: 20px;">Pass to the next student.</p>
             </div>
         </div>
     </div>
@@ -515,13 +514,12 @@
                 });
 
                 // Show success message
-                document.getElementById('successName').textContent = `✓ ${firstName} registered successfully!`;
                 switchView('successView');
 
-                // Auto-reset after 1.5 seconds
+                // Auto-reset after 3 seconds
                 setTimeout(() => {
                     resetToInitial();
-                }, 1500);
+                }, 3000);
             } catch (error) {
                 console.error('Error submitting form:', error);
                 alert('There was an error submitting your registration. Please try again.');
@@ -530,13 +528,12 @@
 
         // Show Success View
         function showSuccess(firstName, lastName) {
-            document.getElementById('successName').textContent = `✓ ${firstName} signed in successfully!`;
             switchView('successView');
 
-            // Auto-reset after 1.5 seconds
+            // Auto-reset after 3 seconds
             setTimeout(() => {
                 resetToInitial();
-            }, 1500);
+            }, 3000);
         }
 
         // Switch between views
