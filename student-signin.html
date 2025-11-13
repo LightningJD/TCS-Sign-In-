@@ -499,6 +499,10 @@
                 class_name: leaderInfo ? leaderInfo.class_name : null
             };
 
+            // Debug: Log what we're sending
+            console.log('📤 Sending to Supabase:', data);
+            console.log('📅 Birth date value:', birthDate);
+
             // Send to Supabase
             try {
                 await sendToSupabase(data);
